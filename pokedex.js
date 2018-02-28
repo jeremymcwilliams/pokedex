@@ -43,17 +43,17 @@ function getPokeData(id){
 
 
       /*  put data in elements */
-      $(".card .name").html(data.name);
-      $(".card .info").html(data.info.description);
-      $(".pokepic").attr("src", data.images.photo);
-      $(".card .type").attr("src", data.images.typeIcon);
-      $(".card .weakness").attr("src", data.images.weaknessIcon);
-      $(".card .hp").html(data.hp+"HP");
+      $("#my-card .card .name").html(data.name);
+      $("#my-card .card .info").html(data.info.description);
+      $("#my-card .pokepic").attr("src", data.images.photo);
+      $("#my-card .card .type").attr("src", data.images.typeIcon);
+      $("#my-card .card .weakness").attr("src", data.images.weaknessIcon);
+      $("#my-card .card .hp").html(data.hp+"HP");
 
       for(var i = 0;i < data.moves.length;i++){
-        $(".card .moves button:eq("+i+") .move").html(data.moves[i].name);
-        $(".card .moves button:eq("+i+") .dp").html(data.moves[i].dp || "");
-        $(".card .moves button:eq("+i+") img").attr("src", "icons/"+data.moves[i].type+".jpg");
+        $("#my-card .card .moves button:eq("+i+") .move").html(data.moves[i].name);
+        $("#my-card .card .moves button:eq("+i+") .dp").html(data.moves[i].dp || "");
+        $("#my-card .card .moves button:eq("+i+") img").attr("src", "icons/"+data.moves[i].type+".jpg");
 
       }
 
@@ -75,6 +75,8 @@ function fight(x){
   $("#pokedex-view").hide();
   $("#their-card").show();
   $("#results-container").show();
+  $("#results-container").children("img").show();
+  $("#my-card .hp-info").show();
 
 
 }
