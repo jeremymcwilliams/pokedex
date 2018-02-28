@@ -4,7 +4,7 @@ var found=["Bulbasaur", "Charmander", "Squirtle"];
 
 
 
-
+/* populate pokedex view   */
 $.get('https://webster.cs.washington.edu/pokedex/pokedex.php', {pokedex: "all"},function(data) {      /* output content from ajax1.php is set to variable "data" */
     //  console.log(data);
     var lines = data.split('\n');
@@ -24,7 +24,7 @@ $.get('https://webster.cs.washington.edu/pokedex/pokedex.php', {pokedex: "all"},
 
       }
 
-
+      /* add event handler   */
       $(".found").click(function(){
 
         getPokeData(this.id);
@@ -41,40 +41,40 @@ function getPokeData(id){
 
       console.log(data);
 
-      /*  get values from returned json  */
-      var name=data.name;
-      var image=data.images.photo;
-      var desc=data.info.description;
-      var hp=data.hp;
-
 
       /*  put data in elements */
-      $(".card .name").html(name);
-      $(".card .info").html(desc);
-      $(".pokepic").attr("src", image);
-      $(".card .hp").html(hp+"HP");
+      $(".card .name").html(data.name);
+      $(".card .info").html(data.info.description);
+      $(".pokepic").attr("src", data.images.photo);
+      $(".card .type").attr("src", data.images.typeIcon);
+      $(".card .weakness").attr("src", data.images.weaknessIcon);
+      $(".card .hp").html(data.hp+"HP");
 
+      for(var i = 0;i < data.moves.length;i++){
+        $(".card .moves button:eq("+i+") .move").html(data.moves[i].name);
+        $(".card .moves button:eq("+i+") .dp").html(data.moves[i].dp || "");
+        $(".card .moves button:eq("+i+") img").attr("src", "icons/"+data.moves[i].type+".jpg");
 
+      }
 
+      $("#start-btn").removeClass("hidden");
 
+      $("#start-btn").click(function(){
+        fight(this);
 
+      });
+
+      //$(".card .moves button:eq(1) .move").html(data.moves[1].name);
    });
-
-
-
-
 
 }
 
+function fight(x){
+
+  console.log(x);
+  $("#pokedex-view").hide();
+  $("#their-card").show();
+  $("#results-container").show();
 
 
-
-
-
-/*
-$.get( "https://webster.cs.washington.edu/peokedex/pokedex.php",{ pokedex: "all" }, function( data ) {
-  $( "body" )
-    .append( "Name: " + data.name ) // John
-    .append( "Time: " + data.time ); //  2pm
-}, "json" );
-*/
+}
