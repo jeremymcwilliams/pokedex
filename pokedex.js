@@ -60,7 +60,7 @@ function getPokeData(id){
       $("#start-btn").removeClass("hidden");
 
       $("#start-btn").click(function(){
-        fight(this);
+        fight(this, data.name);
 
       });
 
@@ -69,7 +69,7 @@ function getPokeData(id){
 
 }
 
-function fight(x){
+function fight(x, myPoke){
 
   console.log(x);
   $("#pokedex-view").hide();
@@ -79,4 +79,43 @@ function fight(x){
   $("#my-card .hp-info").show();
 
 
+  $.post( "https://webster.cs.washington.edu/pokedex/game.php",{ startgame: "true", mypokemon: myPoke }, function( data ) {
+    console.log(data);
+
+    guid=data.guid;
+    pid=data.pid;
+
+
+    var player=data.p2;
+
+    populateCard("their-card", player);
+
+
+
+
+  });
+
+
+
+
 }
+
+function populateCard(parentID, player){
+
+
+  $("#"+parentID+" .card .name").html(player.name);
+  $("#"+parentID+" .card .info").html(player.info.description);
+  $("#"+parentID+" .pokepic").attr("src", player.images.photo);
+  $("#"+parentID+" .card .type").attr("src", player.images.typeIcon);
+  $("#"+parentID+" .card .weakness").attr("src", player.images.weaknessIcon);
+  $("#"+parentID+" .card .hp").html(player.hp+"HP");
+
+
+
+
+}
+
+
+
+
+//https://webster.cs.washington.edu/pokedex/game.php?startgame=true&mypokemon=Squirtle
