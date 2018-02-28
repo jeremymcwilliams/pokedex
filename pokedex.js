@@ -50,6 +50,9 @@ function getPokeData(id){
       $("#my-card .card .weakness").attr("src", data.images.weaknessIcon);
       $("#my-card .card .hp").html(data.hp+"HP");
 
+
+
+        /*  needs work - maybe use Pinsir for less than 4 moves*/
       for(var i = 0;i < data.moves.length;i++){
         $("#my-card .card .moves button:eq("+i+") .move").html(data.moves[i].name);
         $("#my-card .card .moves button:eq("+i+") .dp").html(data.moves[i].dp || "");
@@ -110,7 +113,12 @@ function populateCard(parentID, player){
   $("#"+parentID+" .card .weakness").attr("src", player.images.weaknessIcon);
   $("#"+parentID+" .card .hp").html(player.hp+"HP");
 
+  for(var i = 0;i < player.moves.length;i++){
+    $("#"+parentID+" .card .moves button:eq("+i+") .move").html(player.moves[i].name);
+    $("#"+parentID+" .card .moves button:eq("+i+") .dp").html(player.moves[i].dp || "");
+    $("#"+parentID+" .card .moves button:eq("+i+") img").attr("src", "icons/"+player.moves[i].type+".jpg");
 
+  }
 
 
 }
